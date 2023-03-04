@@ -2,10 +2,13 @@ package Presentation.Controllers.ApplicationUser.Request;
 
 import Application.ValidationExceptionHandler.ValidationExceptionMessages;
 import Infrastructure.CustomValidators.IsEmailAlreadyExists.IsEmailUnique;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Pattern;
 
 public class ApplicationUserCreateRequest {
     @NotNull(message = ValidationExceptionMessages.NOT_NULL)
+    @Email(message = ValidationExceptionMessages.EMAIL_TYPE)
     @IsEmailUnique
     public String Email;
 
@@ -16,7 +19,7 @@ public class ApplicationUserCreateRequest {
 
     public ApplicationUserCreateRequest() {
     }
-    //@Email(message = ValidationExceptionMessages.EMAIL_TYPE)
+
     public String getEmail() {
         return Email;
     }

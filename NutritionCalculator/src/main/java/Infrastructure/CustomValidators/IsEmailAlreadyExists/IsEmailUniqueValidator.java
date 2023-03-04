@@ -1,19 +1,21 @@
 package Infrastructure.CustomValidators.IsEmailAlreadyExists;
 
+import Application.Queries.User.IsUserEmailUnique.IIsUserEmailUnique;
+import jakarta.inject.Inject;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
 public class IsEmailUniqueValidator implements ConstraintValidator<IsEmailUnique, String> {
+
+    @Inject
+    IIsUserEmailUnique isUserEmailUnique;
+
     @Override
     public void initialize(IsEmailUnique constraintAnnotation) {
-        //ConstraintValidator.super.initialize(constraintAnnotation);
     }
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        if (value == "tomek") {
-            return true;
-        }
-        return false;
+        return isUserEmailUnique.Handle(value);
     }
 }
