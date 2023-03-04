@@ -1,13 +1,15 @@
 package Domain.Entities;
 
 import Application.ValidationExceptionHandler.ValidationExceptionMessages;
-import Domain.Entities.Base.EntityId;
+import Domain.Entities.Base.DomainEventsData;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
-import jakarta.validation.constraints.Email;
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.Email;
+
+import java.time.LocalDate;
 
 @Entity
 @Table
@@ -15,7 +17,7 @@ import org.hibernate.validator.constraints.Length;
     name = "ApplicationUser",
     uniqueConstraints = @UniqueConstraint(columnNames = "Email")
 )
-public class ApplicationUser extends EntityId {
+public class ApplicationUser extends DomainEventsData {
     @Column(length = 50, nullable = false)
     @Email(message = ValidationExceptionMessages.EMAIL_TYPE)
     public String Email;
@@ -36,6 +38,9 @@ public class ApplicationUser extends EntityId {
         user.setId(CreateId());
         user.setEmail(email);
         user.setPassword(password);
+
+        user.setCreatedOn(LocalDate.now());
+        user.setCreatedById(user.getId());
 
         return user;
     }

@@ -2,8 +2,8 @@ package Domain.Entities;
 
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
-import org.mockito.*;
-import static org.junit.jupiter.api.Assertions.*;
+
+import java.time.LocalDate;
 
 class ApplicationUserControllerTest {
 
@@ -20,5 +20,7 @@ class ApplicationUserControllerTest {
         Assert.assertTrue(result.Email.equals(email));
         Assert.assertTrue(result.Password.equals(password));
         Assert.assertTrue(result.Id.length() == 36);
+        Assert.assertTrue(result.getCreatedOn() instanceof LocalDate);
+        Assert.assertTrue(result.CreatedById.equals(result.getId()));
     }
 }
