@@ -1,8 +1,9 @@
 package Presentation.Controllers.ApplicationUser;
 
-import Application.Commands.ApplicationUser.Create.CreateApplicationUser;
-import Application.Commands.ApplicationUser.Create.ICreateApplicationUser;
+import Application.Commands.ApplicationUser.Create.CreateApplicationUserCommand;
+import Application.Commands.ApplicationUser.Create.ICreateApplicationUserCommand;
 import Presentation.Controllers.ApplicationUser.Request.ApplicationUserCreateRequest;
+import jakarta.ws.rs.core.Response;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,7 +20,7 @@ import static org.mockito.Mockito.when;
 
 class ApplicationUserControllerTest {
     @Mock
-    ICreateApplicationUser createUserMock = new CreateApplicationUser();
+    ICreateApplicationUserCommand createUserMock = new CreateApplicationUserCommand();
 
     @InjectMocks
     ApplicationUserController controller;
@@ -33,10 +34,10 @@ class ApplicationUserControllerTest {
             .thenReturn(UUID.randomUUID().toString());
 
         //When
-        var response = controller.CreateUser(requestMock);
+        var response = controller.CreateApplicationUser(requestMock);
 
         //Then
-        Assert.assertTrue(response.getStatus() == 200);
+        Assert.assertTrue(response.getStatus() == Response.Status.OK.getStatusCode());
         Assert.assertTrue(response.getEntity().toString().length() == 36);
     }
 }

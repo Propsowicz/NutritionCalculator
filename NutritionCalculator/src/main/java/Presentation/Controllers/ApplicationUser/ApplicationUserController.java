@@ -1,6 +1,6 @@
 package Presentation.Controllers.ApplicationUser;
 
-import Application.Commands.ApplicationUser.Create.ICreateApplicationUser;
+import Application.Commands.ApplicationUser.Create.ICreateApplicationUserCommand;
 import Presentation.Controllers.ApplicationUser.Request.ApplicationUserCreateRequest;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
@@ -15,16 +15,15 @@ import jakarta.ws.rs.core.Response;
 public class ApplicationUserController {
 
     @Inject
-    ICreateApplicationUser createUser;
+    ICreateApplicationUserCommand createApplicationUserCommand;
 
     @POST
-    @Path("/create")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response CreateUser(@Valid ApplicationUserCreateRequest request){
+    public Response CreateApplicationUser(@Valid ApplicationUserCreateRequest request){
 
         return Response.ok(
-            createUser.Handle(
+            createApplicationUserCommand.Handle(
                 request.Email,
                 request.Password)
         ).build();

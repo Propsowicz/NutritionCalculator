@@ -7,7 +7,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 
 @Stateless
-public class CreateApplicationUser implements ICreateApplicationUser {
+public class CreateApplicationUserCommand implements ICreateApplicationUserCommand {
 
     @PersistenceContext
     EntityManager entityManager;
