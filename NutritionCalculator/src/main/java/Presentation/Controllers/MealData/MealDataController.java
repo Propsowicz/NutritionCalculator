@@ -1,13 +1,15 @@
 package Presentation.Controllers.MealData;
 
 import Application.Commands.MealData.Create.ICreateMealDataCommand;
+import Application.Queries.MealData.GetMealData.IGetMealDataQuery;
 import Presentation.Controllers.MealData.Request.MealDataCreateRequest;
+import Presentation.Helpers.JsonSerializer;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
-import jakarta.ws.rs.Produces;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Positive;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 
@@ -16,6 +18,26 @@ public class MealDataController {
 
     @Inject
     ICreateMealDataCommand createMealDataCommand;
+
+    @Inject
+    IGetMealDataQuery getMealDataQuery;
+
+    @GET
+    @Path("/page-number={pageNumber}&page-size={pageSize}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response GetMealData(
+        @PathParam("pageNumber") @Positive Integer pageNumber,
+        @PathParam("pageSize") @Positive @Max(20) Integer pageSize
+    ) throws JsonProcessingException {
+        return Response.ok(
+            JsonSerializer.Serialize(
+                getMealDataQuery.Handle(
+                    pageNumber,
+                    pageSize
+                )
+            )
+        ).build();
+    }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
