@@ -7,8 +7,7 @@ public class ValidationExceptionMessages {
 
     public static final String PASSWORD_TYPE = "Must be at least five characters, one number and one letter";
 
-    public static final String STRING_LENGTH_MAX_50 = "Must be shorter o equal to 50 characters";
-
+    public static final String STRING_LENGTH_MAX_50 = "Must be shorter or equal to 50 characters";
 
     public static final String POSITIVE_OR_ZERO = "Must be positive or zero";
 
