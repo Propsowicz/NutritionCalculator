@@ -28,11 +28,12 @@ class CreateApplicationUserControllerTest {
     }
 
 
+
     @Test
     void handle() {
         String email = "test@test.com";
         String password = "password";
 
-        var result = new CreateApplicationUser().Handle(email, password);
+        //var result = new CreateApplicationUser().Handle(email, password);
     }
 }

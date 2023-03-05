@@ -1,14 +1,12 @@
 package Presentation.Conf;
 
-import jakarta.annotation.sql.DataSourceDefinition;
-import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.ws.rs.ApplicationPath;
 import jakarta.ws.rs.core.Application;
 
 @ApplicationPath("/api")
-@ApplicationScoped
+/*@ApplicationScoped
 @DataSourceDefinition(
-        name = "jdbc/postgres",
+        name = "jdbc/test",
         className = "org.postgresql.jdbc3.Jdbc3PoolingDataSource",
         user = "test",
         password = "test",
@@ -18,6 +16,6 @@ import jakarta.ws.rs.core.Application;
                 "useSSL=false",
                 "requireSSL=false"
         }
-)
+)*/
 public class Main extends Application {
 }
