@@ -8,14 +8,12 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @Testcontainers
 class CreateApplicationUserControllerTest {
 
-    /*@Container
+    @Container
     private PostgreSQLContainer dbContainer = new PostgreSQLContainer<>(
-            DockerImageName.parse("postgres:latest")
+            DockerImageName.parse("postgres:15.2")
     );
 
     @BeforeEach
@@ -27,7 +25,7 @@ class CreateApplicationUserControllerTest {
                 .load();
         flyway.clean();
         flyway.migrate();
-    }*/
+    }
 
 
     @Test
@@ -35,7 +33,6 @@ class CreateApplicationUserControllerTest {
         String email = "test@test.com";
         String password = "password";
 
-        //var result = new CreateApplicationUser().Handle(email, password);
-
+        var result = new CreateApplicationUser().Handle(email, password);
     }
 }
