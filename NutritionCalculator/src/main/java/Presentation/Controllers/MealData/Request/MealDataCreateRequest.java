@@ -1,60 +1,37 @@
-package Domain.Entities;
+package Presentation.Controllers.MealData.Request;
 
-import Domain.Entities.Base.EntityId;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import Application.ValidationExceptionHandler.ValidationExceptionMessages;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
+import org.hibernate.validator.constraints.Length;
 
-@Entity
-@Table
-(
-    name = "MealData"
-)
-public class MealData extends EntityId {
-    @Column(length = 50, nullable = false)
+public class MealDataCreateRequest {
+    @NotNull(message = ValidationExceptionMessages.NOT_NULL)
+    @Length(max = 50, message = ValidationExceptionMessages.STRING_LENGTH_MAX_50)
     public String Name;
 
-    @Column(nullable = false)
-    @PositiveOrZero
+    @PositiveOrZero(message = ValidationExceptionMessages.POSITIVE_OR_ZERO)
+    @Max(value = 5000, message = ValidationExceptionMessages.INTEGER_MAX_5000)
     public Integer CaloriesPer100Grams;
 
-    @Column(nullable = false)
-    @PositiveOrZero
+    @PositiveOrZero(message = ValidationExceptionMessages.POSITIVE_OR_ZERO)
+    @Max(value = 5000, message = ValidationExceptionMessages.INTEGER_MAX_5000)
     public Double CarbsPer100Grams;
 
-    @Column(nullable = false)
-    @PositiveOrZero
+    @PositiveOrZero(message = ValidationExceptionMessages.POSITIVE_OR_ZERO)
+    @Max(value = 5000, message = ValidationExceptionMessages.INTEGER_MAX_5000)
     public Double ProteinsPer100Grams;
 
-    @Column(nullable = false)
-    @PositiveOrZero
+    @PositiveOrZero(message = ValidationExceptionMessages.POSITIVE_OR_ZERO)
+    @Max(value = 5000, message = ValidationExceptionMessages.INTEGER_MAX_5000)
     public Double FatsPer100Grams;
 
-    public MealData() {
+    public MealDataCreateRequest() {
     }
 
     public String getName() {
         return Name;
-    }
-
-    public MealData Create(
-            String name,
-            Integer calories,
-            Double carbs,
-            Double proteins,
-            Double fats
-    )
-    {
-        var mealData = new MealData();
-        mealData.setId(CreateId());
-        mealData.setName(name);
-        mealData.setCaloriesPer100Grams(calories);
-        mealData.setCarbsPer100Grams(carbs);
-        mealData.setProteinsPer100Grams(proteins);
-        mealData.setFatsPer100Grams(fats);
-
-        return mealData;
     }
 
     public void setName(String name) {

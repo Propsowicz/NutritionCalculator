@@ -11,7 +11,9 @@
         <class>Domain.Entities.MealData</class>
 
         <properties>
-            <property name="jakarta.persistence.schema-generation.database.action" value="drop-and-create"/>
+            <property name="jakarta.persistence.schema-generation.database.action" value="create"/>
+            <property name="jakarta.persistence.schema-generation.create-source" value="metadata-then-script"/>
+            <property name="jakarta.persistence.schema-generation.create-script-source" value="META-INF/db_seed.sql"/>
         </properties>
     </persistence-unit>
 </persistence>
