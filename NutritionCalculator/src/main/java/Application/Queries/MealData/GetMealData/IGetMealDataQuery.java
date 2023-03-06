@@ -1,11 +1,9 @@
 package Application.Queries.MealData.GetMealData;
 
+import Application.BuildingBlocks.Primitives.PaginatedResponse;
 import Application.Queries.MealData.DtoModels.MealDataDto;
-import Application.Primitives.PaginatedResponse;
+import Presentation.BuidlingBlocks.Primitives.PaginatedRequest;
 
 public interface IGetMealDataQuery {
-    PaginatedResponse<MealDataDto> Handle(
-            Integer pageNumber,
-            Integer pageSize
-    );
+    PaginatedResponse<MealDataDto> Handle(PaginatedRequest request);
 }

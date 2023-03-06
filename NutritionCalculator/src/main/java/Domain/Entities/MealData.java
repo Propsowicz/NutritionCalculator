@@ -6,6 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.PositiveOrZero;
 
+import java.util.Objects;
+
 @Entity
 @Table
 (
@@ -57,7 +59,7 @@ public class MealData extends EntityId {
         return mealData;
     }
 
-    public void setName(String name) {
+    private void setName(String name) {
         Name = name;
     }
 
@@ -65,7 +67,7 @@ public class MealData extends EntityId {
         return CaloriesPer100Grams;
     }
 
-    public void setCaloriesPer100Grams(Integer caloriesPer100Grams) {
+    private void setCaloriesPer100Grams(Integer caloriesPer100Grams) {
         CaloriesPer100Grams = caloriesPer100Grams;
     }
 
@@ -73,7 +75,7 @@ public class MealData extends EntityId {
         return CarbsPer100Grams;
     }
 
-    public void setCarbsPer100Grams(Double carbsPer100Grams) {
+    private void setCarbsPer100Grams(Double carbsPer100Grams) {
         CarbsPer100Grams = carbsPer100Grams;
     }
 
@@ -81,7 +83,7 @@ public class MealData extends EntityId {
         return ProteinsPer100Grams;
     }
 
-    public void setProteinsPer100Grams(Double proteinsPer100Grams) {
+    private void setProteinsPer100Grams(Double proteinsPer100Grams) {
         ProteinsPer100Grams = proteinsPer100Grams;
     }
 
@@ -89,7 +91,20 @@ public class MealData extends EntityId {
         return FatsPer100Grams;
     }
 
-    public void setFatsPer100Grams(Double fatsPer100Grams) {
+    private void setFatsPer100Grams(Double fatsPer100Grams) {
         FatsPer100Grams = fatsPer100Grams;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MealData mealData = (MealData) o;
+        return Name.equals(mealData.Name) && CaloriesPer100Grams.equals(mealData.CaloriesPer100Grams) && CarbsPer100Grams.equals(mealData.CarbsPer100Grams) && ProteinsPer100Grams.equals(mealData.ProteinsPer100Grams) && FatsPer100Grams.equals(mealData.FatsPer100Grams);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(Name, CaloriesPer100Grams, CarbsPer100Grams, ProteinsPer100Grams, FatsPer100Grams);
     }
 }

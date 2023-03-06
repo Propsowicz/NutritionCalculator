@@ -2,13 +2,12 @@ package Presentation.Controllers.MealData;
 
 import Application.Commands.MealData.Create.ICreateMealDataCommand;
 import Application.Queries.MealData.GetMealData.IGetMealDataQuery;
+import Presentation.BuidlingBlocks.Helpers.JsonSerializer;
+import Presentation.BuidlingBlocks.Primitives.PaginatedRequest;
 import Presentation.Controllers.MealData.Request.MealDataCreateRequest;
-import Presentation.Helpers.JsonSerializer;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Positive;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -23,17 +22,24 @@ public class MealDataController {
     IGetMealDataQuery getMealDataQuery;
 
     @GET
-    @Path("/page-number={pageNumber}&page-size={pageSize}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response GetMealData(
-        @PathParam("pageNumber") @Positive Integer pageNumber,
-        @PathParam("pageSize") @Positive @Max(20) Integer pageSize
+        @QueryParam("page-number") Integer pageNumber,
+        @QueryParam("page-size") Integer pageSize,
+        @QueryParam("ord-val") String orderValue,
+        @QueryParam("ord-dir") String orderDirection,
+        @QueryParam("phrase") String phrase
     ) throws JsonProcessingException {
         return Response.ok(
             JsonSerializer.Serialize(
                 getMealDataQuery.Handle(
-                    pageNumber,
-                    pageSize
+                    new PaginatedRequest(
+                        pageNumber,
+                        pageSize,
+                        orderValue,
+                        orderDirection,
+                        phrase
+                    )
                 )
             )
         ).build();

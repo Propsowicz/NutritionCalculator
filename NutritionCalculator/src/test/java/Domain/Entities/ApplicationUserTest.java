@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
-class ApplicationUserControllerTest {
+class ApplicationUserTest {
 
     @Test
     void GivenApplicationUser_WhenCreate_ThenSucceed() {

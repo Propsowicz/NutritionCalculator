@@ -6,6 +6,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 public class Meal extends DomainEventsData {
@@ -36,7 +37,7 @@ public class Meal extends DomainEventsData {
         return applicationUser;
     }
 
-    public void setUser(ApplicationUser applicationUser) {
+    private void setUser(ApplicationUser applicationUser) {
         this.applicationUser = applicationUser;
     }
 
@@ -44,7 +45,7 @@ public class Meal extends DomainEventsData {
         return MealDate;
     }
 
-    public void setMealDate(LocalDate mealDate) {
+    private void setMealDate(LocalDate mealDate) {
         MealDate = mealDate;
     }
 
@@ -52,7 +53,7 @@ public class Meal extends DomainEventsData {
         return MealWeight;
     }
 
-    public void setMealWeight(Integer mealWeight) {
+    private void setMealWeight(Integer mealWeight) {
         MealWeight = mealWeight;
     }
 
@@ -60,7 +61,7 @@ public class Meal extends DomainEventsData {
         return mealData;
     }
 
-    public void setMealData(MealData mealData) {
+    private void setMealData(MealData mealData) {
         this.mealData = mealData;
     }
 
@@ -68,7 +69,7 @@ public class Meal extends DomainEventsData {
         return Calories;
     }
 
-    public void setCalories(Integer calories) {
+    private void setCalories(Integer calories) {
         Calories = calories;
     }
 
@@ -76,7 +77,7 @@ public class Meal extends DomainEventsData {
         return Carbs;
     }
 
-    public void setCarbs(Integer carbs) {
+    private void setCarbs(Integer carbs) {
         Carbs = carbs;
     }
 
@@ -84,7 +85,7 @@ public class Meal extends DomainEventsData {
         return Proteins;
     }
 
-    public void setProteins(Integer proteins) {
+    private void setProteins(Integer proteins) {
         Proteins = proteins;
     }
 
@@ -92,7 +93,20 @@ public class Meal extends DomainEventsData {
         return Fats;
     }
 
-    public void setFats(Integer fats) {
+    private void setFats(Integer fats) {
         Fats = fats;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Meal meal = (Meal) o;
+        return applicationUser.equals(meal.applicationUser) && MealDate.equals(meal.MealDate) && MealWeight.equals(meal.MealWeight) && mealData.equals(meal.mealData) && Calories.equals(meal.Calories) && Carbs.equals(meal.Carbs) && Proteins.equals(meal.Proteins) && Fats.equals(meal.Fats);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(applicationUser, MealDate, MealWeight, mealData, Calories, Carbs, Proteins, Fats);
     }
 }

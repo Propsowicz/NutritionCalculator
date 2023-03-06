@@ -1,9 +1,10 @@
 package Application.Queries.MealData.GetMealData;
 
-import Application.Helpers.PaginationHelper;
-import Application.Primitives.PaginatedResponse;
+import Application.BuildingBlocks.Helpers.PaginationHelperFactory;
+import Application.BuildingBlocks.Primitives.PaginatedResponse;
 import Application.Queries.MealData.DtoModels.MealDataDto;
 import Domain.Entities.MealData;
+import Presentation.BuidlingBlocks.Primitives.PaginatedRequest;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -19,15 +20,12 @@ public class GetMealDataQuery implements IGetMealDataQuery {
     EntityManager entityManager;
 
     @Override
-    public PaginatedResponse<MealDataDto> Handle(
-        Integer pageNumber,
-        Integer pageSize
-    )
+    public PaginatedResponse<MealDataDto> Handle(PaginatedRequest request)
     {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 
         Long itemsCount = CountQueryItems(criteriaBuilder);
-        TypedQuery<MealDataDto> typedQuery = QueryMealData(criteriaBuilder, pageNumber, pageSize);
+        TypedQuery<MealDataDto> typedQuery = QueryMealData(criteriaBuilder, request);
 
         return new PaginatedResponse(
                 typedQuery.getResultList(),
@@ -44,13 +42,12 @@ public class GetMealDataQuery implements IGetMealDataQuery {
 
     private TypedQuery<MealDataDto> QueryMealData(
             CriteriaBuilder criteriaBuilder,
-            Integer pageNumber,
-            Integer pageSize
+            PaginatedRequest request
     )
     {
         CriteriaQuery<MealDataDto> criteriaQuery = criteriaBuilder.createQuery(MealDataDto.class);
         Root<MealData> from = criteriaQuery.from(MealData.class);
-        CriteriaQuery<MealDataDto> select = criteriaQuery.select(
+        criteriaQuery.select(
                 criteriaBuilder.construct(
                         MealDataDto.class,
                         from.get("Id"),
@@ -61,6 +58,14 @@ public class GetMealDataQuery implements IGetMealDataQuery {
                         from.get("FatsPer100Grams")
                 )
         );
-        return PaginationHelper.GetPage(entityManager, select, pageNumber, pageSize);
+
+        var paginationHelperFactory = new PaginationHelperFactory<MealData, MealDataDto>(
+                entityManager,
+                criteriaBuilder,
+                criteriaQuery,
+                from
+        );
+
+        return paginationHelperFactory.GetQuery(request, "name");
     }
 }
