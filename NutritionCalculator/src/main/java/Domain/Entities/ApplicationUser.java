@@ -10,6 +10,7 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 @Table
@@ -49,7 +50,7 @@ public class ApplicationUser extends DomainEventsData {
         return Email;
     }
 
-    public void setEmail(String email) {
+    private void setEmail(String email) {
         Email = email;
     }
 
@@ -57,7 +58,20 @@ public class ApplicationUser extends DomainEventsData {
         return Password;
     }
 
-    public void setPassword(String password) {
+    private void setPassword(String password) {
         Password = password;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ApplicationUser that = (ApplicationUser) o;
+        return Email.equals(that.Email) && Password.equals(that.Password);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(Email, Password);
     }
 }

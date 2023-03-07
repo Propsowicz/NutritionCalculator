@@ -22,7 +22,7 @@ public abstract class DomainEventsData extends EntityId{
         return CreatedOn;
     }
 
-    public void setCreatedOn(LocalDate createdOn) {
+    protected void setCreatedOn(LocalDate createdOn) {
         CreatedOn = createdOn;
     }
 
@@ -30,7 +30,7 @@ public abstract class DomainEventsData extends EntityId{
         return CreatedById;
     }
 
-    public void setCreatedById(String createdById) {
+    protected void setCreatedById(String createdById) {
         CreatedById = createdById;
     }
 
@@ -38,7 +38,7 @@ public abstract class DomainEventsData extends EntityId{
         return UpdatedOn;
     }
 
-    public void setUpdatedOn(LocalDate updatedOn) {
+    protected void setUpdatedOn(LocalDate updatedOn) {
         UpdatedOn = updatedOn;
     }
 
@@ -46,7 +46,7 @@ public abstract class DomainEventsData extends EntityId{
         return UpdatedById;
     }
 
-    public void setUpdatedById(String updatedById) {
+    protected void setUpdatedById(String updatedById) {
         UpdatedById = updatedById;
     }
 
@@ -54,7 +54,7 @@ public abstract class DomainEventsData extends EntityId{
         return DeletedOn;
     }
 
-    public void setDeletedOn(LocalDate deletedOn) {
+    protected void setDeletedOn(LocalDate deletedOn) {
         DeletedOn = deletedOn;
     }
 
@@ -62,7 +62,7 @@ public abstract class DomainEventsData extends EntityId{
         return DeletedById;
     }
 
-    public void setDeletedById(String deletedById) {
+    protected void setDeletedById(String deletedById) {
         DeletedById = deletedById;
     }
 }

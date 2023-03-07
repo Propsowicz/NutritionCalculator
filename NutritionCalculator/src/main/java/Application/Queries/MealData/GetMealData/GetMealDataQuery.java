@@ -1,9 +1,9 @@
-package Application.Queries.User.GetAll;
+package Application.Queries.MealData.GetMealData;
 
 import Application.BuildingBlocks.Helpers.PaginationHelperFactory;
 import Application.BuildingBlocks.Primitives.PaginatedResponse;
-import Application.Queries.User.DtoModels.ApplicationUserDto;
-import Domain.Entities.ApplicationUser;
+import Application.Queries.MealData.DtoModels.MealDataDto;
+import Domain.Entities.MealData;
 import Presentation.BuidlingBlocks.Primitives.PaginatedRequest;
 import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
@@ -14,17 +14,18 @@ import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 
 @Stateless
-public class GetAllUsers implements IGetAllUsers{
+public class GetMealDataQuery implements IGetMealDataQuery {
 
     @PersistenceContext
     EntityManager entityManager;
 
     @Override
-    public PaginatedResponse<ApplicationUserDto> Handle(PaginatedRequest request) {
+    public PaginatedResponse<MealDataDto> Handle(PaginatedRequest request)
+    {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 
         Long itemsCount = CountQueryItems(criteriaBuilder);
-        TypedQuery<ApplicationUserDto> typedQuery = QueryMealData(criteriaBuilder, request);
+        TypedQuery<MealDataDto> typedQuery = QueryMealData(criteriaBuilder, request);
 
         return new PaginatedResponse(
                 typedQuery.getResultList(),
@@ -34,33 +35,37 @@ public class GetAllUsers implements IGetAllUsers{
 
     private Long CountQueryItems(CriteriaBuilder criteriaBuilder){
         CriteriaQuery<Long> countQuery = criteriaBuilder.createQuery(Long.class);
-        countQuery.select(criteriaBuilder.count(countQuery.from(ApplicationUser.class)));
+        countQuery.select(criteriaBuilder.count(countQuery.from(MealData.class)));
 
         return entityManager.createQuery(countQuery).getSingleResult();
     }
 
-    private TypedQuery<ApplicationUserDto> QueryMealData(
+    private TypedQuery<MealDataDto> QueryMealData(
             CriteriaBuilder criteriaBuilder,
             PaginatedRequest request
     )
     {
-        CriteriaQuery<ApplicationUserDto> criteriaQuery = criteriaBuilder.createQuery(ApplicationUserDto.class);
-        Root<ApplicationUser> from = criteriaQuery.from(ApplicationUser.class);
+        CriteriaQuery<MealDataDto> criteriaQuery = criteriaBuilder.createQuery(MealDataDto.class);
+        Root<MealData> from = criteriaQuery.from(MealData.class);
         criteriaQuery.select(
                 criteriaBuilder.construct(
-                        ApplicationUserDto.class,
+                        MealDataDto.class,
                         from.get("Id"),
-                        from.get("Email")
+                        from.get("Name"),
+                        from.get("CaloriesPer100Grams"),
+                        from.get("CarbsPer100Grams"),
+                        from.get("ProteinsPer100Grams"),
+                        from.get("FatsPer100Grams")
                 )
         );
 
-        var paginationHelperFactory = new PaginationHelperFactory<ApplicationUser, ApplicationUserDto>(
+        var paginationHelperFactory = new PaginationHelperFactory<MealData, MealDataDto>(
                 entityManager,
                 criteriaBuilder,
                 criteriaQuery,
                 from
         );
 
-        return paginationHelperFactory.GetQuery(request, "email");
+        return paginationHelperFactory.GetQuery(request, "name");
     }
 }

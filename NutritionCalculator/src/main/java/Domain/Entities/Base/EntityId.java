@@ -22,7 +22,7 @@ public abstract class EntityId {
         return Id;
     }
 
-    public void setId(String id) {
+    protected void setId(String id) {
         Id = id;
     }
 }
