@@ -13,7 +13,15 @@ public class MealDataDto {
 
     public Double fatsPer100Grams;
 
-    public MealDataDto(String id, String name, Integer caloriesPer100Grams, Double carbsPer100Grams, Double proteinsPer100Grams, Double fatsPer100Grams) {
+    public MealDataDto(
+        String id,
+        String name,
+        Integer caloriesPer100Grams,
+        Double carbsPer100Grams,
+        Double proteinsPer100Grams,
+        Double fatsPer100Grams
+    )
+    {
         this.id = id;
         this.name = name;
         this.caloriesPer100Grams = caloriesPer100Grams;
