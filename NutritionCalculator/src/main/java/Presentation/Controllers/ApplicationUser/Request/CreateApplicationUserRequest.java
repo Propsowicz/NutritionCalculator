@@ -1,13 +1,13 @@
 package Presentation.Controllers.ApplicationUser.Request;
 
 import Application.ValidationExceptionHandler.ValidationExceptionMessages;
-import Infrastructure.CustomValidators.IsEmailAlreadyExists.IsEmailUnique;
+import Application.CustomValidators.IsEmailAlreadyExists.IsEmailUnique;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.Length;
 
-public class ApplicationUserCreateRequest {
+public class CreateApplicationUserRequest {
     @NotNull(message = ValidationExceptionMessages.NOT_NULL)
     @Email(message = ValidationExceptionMessages.EMAIL_TYPE)
     @Length(max = 50, message = ValidationExceptionMessages.STRING_LENGTH_MAX_50)
@@ -20,7 +20,7 @@ public class ApplicationUserCreateRequest {
     @Length(max = 50, message = ValidationExceptionMessages.STRING_LENGTH_MAX_50)
     public String Password;
 
-    public ApplicationUserCreateRequest() {
+    public CreateApplicationUserRequest() {
     }
 
     public String getEmail() {

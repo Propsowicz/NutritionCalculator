@@ -4,7 +4,7 @@ import Application.Commands.ApplicationUser.Create.ICreateApplicationUserCommand
 import Application.Queries.User.GetAll.IGetAllUsers;
 import Presentation.BuidlingBlocks.Helpers.JsonSerializer;
 import Presentation.BuidlingBlocks.Primitives.PaginatedRequest;
-import Presentation.Controllers.ApplicationUser.Request.ApplicationUserCreateRequest;
+import Presentation.Controllers.ApplicationUser.Request.CreateApplicationUserRequest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
@@ -48,7 +48,7 @@ public class ApplicationUserController {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response CreateApplicationUser(@Valid ApplicationUserCreateRequest request){
+    public Response CreateApplicationUser(@Valid CreateApplicationUserRequest request){
 
         return Response.ok(
             createApplicationUserCommand.Handle(

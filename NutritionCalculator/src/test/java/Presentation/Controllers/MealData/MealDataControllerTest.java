@@ -3,7 +3,7 @@ package Presentation.Controllers.MealData;
 import Application.Commands.MealData.Create.CreateMealDataCommand;
 import Application.Commands.MealData.Create.ICreateMealDataCommand;
 import Application.Queries.MealData.GetMealData.IGetMealDataQuery;
-import Presentation.Controllers.MealData.Request.MealDataCreateRequest;
+import Presentation.Controllers.MealData.Request.CreateMealDataRequest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.ws.rs.core.Response;
 import org.junit.Assert;
@@ -33,7 +33,7 @@ class MealDataControllerTest {
     @Test
     void GivenMealDataController_WhenCreateMealData_ThenOk() {
         //Given
-        MealDataCreateRequest requestMock = mock();
+        CreateMealDataRequest requestMock = mock();
         when(createMealDataCommandMock
                 .Handle(
                     requestMock.Name,

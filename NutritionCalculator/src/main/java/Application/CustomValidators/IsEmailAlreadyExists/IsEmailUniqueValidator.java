@@ -1,4 +1,4 @@
-package Infrastructure.CustomValidators.IsEmailAlreadyExists;
+package Application.CustomValidators.IsEmailAlreadyExists;
 
 import Application.Queries.User.IsUserEmailUnique.IIsUserEmailUnique;
 import jakarta.inject.Inject;
