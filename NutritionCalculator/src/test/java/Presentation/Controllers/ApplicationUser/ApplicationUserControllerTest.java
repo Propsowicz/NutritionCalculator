@@ -3,7 +3,7 @@ package Presentation.Controllers.ApplicationUser;
 import Application.Commands.ApplicationUser.Create.CreateApplicationUserCommand;
 import Application.Commands.ApplicationUser.Create.ICreateApplicationUserCommand;
 import Application.Queries.User.GetAll.IGetAllUsers;
-import Presentation.Controllers.ApplicationUser.Request.ApplicationUserCreateRequest;
+import Presentation.Controllers.ApplicationUser.Request.CreateApplicationUserRequest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.ws.rs.core.Response;
 import org.junit.Assert;
@@ -33,7 +33,7 @@ class ApplicationUserControllerTest {
     @Test
     void GivenApplicationUserController_WhenCreateUser_ThenOk() {
         //Given
-        ApplicationUserCreateRequest requestMock = mock();
+        CreateApplicationUserRequest requestMock = mock();
         when(createUserMock
             .Handle(requestMock.Email, requestMock.Password)
         )

@@ -1,9 +1,11 @@
 package Domain.Entities;
 
 import Domain.Entities.Base.DomainEventsData;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.PositiveOrZero;
 
 import java.time.LocalDate;
 import java.util.Objects;
@@ -14,47 +16,86 @@ public class Meal extends DomainEventsData {
     @ManyToOne
     public ApplicationUser applicationUser;
 
-    public LocalDate MealDate;
+    @Column(nullable = false)
+    public LocalDate Date;
 
-    public Integer MealWeight;
+    @Column(nullable = false)
+    @PositiveOrZero
+    public Double Weight;
 
     @JoinColumn(name = "MealDataId", nullable = false)
     @ManyToOne
     public MealData mealData;
 
+    @Column(nullable = false)
+    @PositiveOrZero
     public Integer Calories;
 
-    public Integer Carbs;
+    @Column(nullable = false)
+    @PositiveOrZero
+    public Double Carbs;
 
-    public Integer Proteins;
+    @Column(nullable = false)
+    @PositiveOrZero
+    public Double Proteins;
 
-    public Integer Fats;
+    @Column(nullable = false)
+    @PositiveOrZero
+    public Double Fats;
 
     public Meal() {
     }
 
-    public ApplicationUser getUser() {
+    public Meal Create (
+            ApplicationUser applicationUser,
+            MealData mealData,
+            LocalDate date,
+            Double weight,
+            Integer calories,
+            Double carbs,
+            Double proteins,
+            Double fats
+    )
+    {
+        Meal meal = new Meal();
+        meal.setId(CreateId());
+        meal.setApplicationUser(applicationUser);
+        meal.setMealData(mealData);
+        meal.setDate(date);
+        meal.setWeight(weight);
+        meal.setCalories(calories);
+        meal.setCarbs(carbs);
+        meal.setProteins(proteins);
+        meal.setFats(fats);
+
+        meal.setCreatedOn(LocalDate.now());
+        meal.setCreatedById(applicationUser.Id);
+
+        return meal;
+    }
+
+    public ApplicationUser getApplicationUser() {
         return applicationUser;
     }
 
-    private void setUser(ApplicationUser applicationUser) {
+    private void setApplicationUser(ApplicationUser applicationUser) {
         this.applicationUser = applicationUser;
     }
 
-    public LocalDate getMealDate() {
-        return MealDate;
+    public LocalDate getDate() {
+        return Date;
     }
 
-    private void setMealDate(LocalDate mealDate) {
-        MealDate = mealDate;
+    private void setDate(LocalDate mealDate) {
+        Date = mealDate;
     }
 
-    public Integer getMealWeight() {
-        return MealWeight;
+    public Double getWeight() {
+        return Weight;
     }
 
-    private void setMealWeight(Integer mealWeight) {
-        MealWeight = mealWeight;
+    private void setWeight(Double Weight) {
+        this.Weight = Weight;
     }
 
     public MealData getMealData() {
@@ -73,27 +114,27 @@ public class Meal extends DomainEventsData {
         Calories = calories;
     }
 
-    public Integer getCarbs() {
+    public Double getCarbs() {
         return Carbs;
     }
 
-    private void setCarbs(Integer carbs) {
+    private void setCarbs(Double carbs) {
         Carbs = carbs;
     }
 
-    public Integer getProteins() {
+    public Double getProteins() {
         return Proteins;
     }
 
-    private void setProteins(Integer proteins) {
+    private void setProteins(Double proteins) {
         Proteins = proteins;
     }
 
-    public Integer getFats() {
+    public Double getFats() {
         return Fats;
     }
 
-    private void setFats(Integer fats) {
+    private void setFats(Double fats) {
         Fats = fats;
     }
 
@@ -102,11 +143,11 @@ public class Meal extends DomainEventsData {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Meal meal = (Meal) o;
-        return applicationUser.equals(meal.applicationUser) && MealDate.equals(meal.MealDate) && MealWeight.equals(meal.MealWeight) && mealData.equals(meal.mealData) && Calories.equals(meal.Calories) && Carbs.equals(meal.Carbs) && Proteins.equals(meal.Proteins) && Fats.equals(meal.Fats);
+        return applicationUser.equals(meal.applicationUser) && Date.equals(meal.Date) && Weight.equals(meal.Weight) && mealData.equals(meal.mealData) && Calories.equals(meal.Calories) && Carbs.equals(meal.Carbs) && Proteins.equals(meal.Proteins) && Fats.equals(meal.Fats);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(applicationUser, MealDate, MealWeight, mealData, Calories, Carbs, Proteins, Fats);
+        return Objects.hash(applicationUser, Date, Weight, mealData, Calories, Carbs, Proteins, Fats);
     }
 }

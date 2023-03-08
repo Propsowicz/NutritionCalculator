@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import org.hibernate.validator.constraints.Length;
 
-public class MealDataCreateRequest {
+public class CreateMealDataRequest {
     @NotNull(message = ValidationExceptionMessages.NOT_NULL)
     @Length(max = 50, message = ValidationExceptionMessages.STRING_LENGTH_MAX_50)
     public String Name;
@@ -27,7 +27,7 @@ public class MealDataCreateRequest {
     @Max(value = 5000, message = ValidationExceptionMessages.INTEGER_MAX_5000)
     public Double FatsPer100Grams;
 
-    public MealDataCreateRequest() {
+    public CreateMealDataRequest() {
     }
 
     public String getName() {

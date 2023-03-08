@@ -4,7 +4,7 @@ import Application.Commands.MealData.Create.ICreateMealDataCommand;
 import Application.Queries.MealData.GetMealData.IGetMealDataQuery;
 import Presentation.BuidlingBlocks.Helpers.JsonSerializer;
 import Presentation.BuidlingBlocks.Primitives.PaginatedRequest;
-import Presentation.Controllers.MealData.Request.MealDataCreateRequest;
+import Presentation.Controllers.MealData.Request.CreateMealDataRequest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
@@ -48,7 +48,7 @@ public class MealDataController {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response CreateMealData(@Valid MealDataCreateRequest request){
+    public Response CreateMealData(@Valid CreateMealDataRequest request){
         return Response.ok(
             createMealDataCommand.Handle(
                 request.Name,
