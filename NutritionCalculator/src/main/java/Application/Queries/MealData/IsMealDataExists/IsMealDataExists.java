@@ -13,7 +13,7 @@ public class IsMealDataExists implements IIsMealDataExists {
 
     @Override
     public boolean Handle(String mealDataId) {
-        if (entityManager.find(MealData.class, mealDataId) == null) { return false; }
-        return true;
+        if (entityManager.find(MealData.class, mealDataId) != null) { return true; }
+        return false;
     }
 }

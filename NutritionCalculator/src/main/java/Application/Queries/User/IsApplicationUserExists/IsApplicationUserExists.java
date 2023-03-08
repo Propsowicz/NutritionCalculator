@@ -13,7 +13,7 @@ public class IsApplicationUserExists implements IIsApplicationUserExists {
 
     @Override
     public boolean Handle(String applicationUserId) {
-        if (entityManager.find(ApplicationUser.class, applicationUserId) == null) { return false; }
-        return true;
+        if (entityManager.find(ApplicationUser.class, applicationUserId) != null) { return true; }
+        return false;
     }
 }
